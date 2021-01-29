@@ -194,7 +194,7 @@ export default function Home() {
                   <Box
                     as="a"
                     href={`https://etherscan.io/address/${data?.medias[0]?.creator?.id}`}
-                    css={{ color: "currentcolor" }}
+                    css={{ color: "currentcolor", fontFamily: "@mono" }}
                   >
                     {toTrimmedAddress(data?.medias[0]?.creator?.id)}
                   </Box>
@@ -206,7 +206,7 @@ export default function Home() {
                   <Box
                     as="a"
                     href={`https://etherscan.io/address/${data?.medias[0]?.owner?.id}`}
-                    css={{ color: "currentcolor" }}
+                    css={{ color: "currentcolor", fontFamily: "@mono" }}
                   >
                     {toTrimmedAddress(data?.medias[0]?.owner?.id)}
                   </Box>

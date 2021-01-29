@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { useRouter } from "next/router"
+import Head from "next/head"
 import * as Fathom from "fathom-client"
 import { css } from "stitches.config"
 import { QueryClient, QueryClientProvider } from "react-query"
@@ -42,6 +43,13 @@ export default function App({ Component, pageProps }) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Head>
+        <title>Is it minted yet</title>
+        <meta
+          name="description"
+          content="Check if a file has been minted on Zora yet"
+        />
+      </Head>
       <Component {...pageProps} />
     </QueryClientProvider>
   )

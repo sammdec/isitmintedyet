@@ -24,9 +24,9 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   useEffect(() => {
-    Fathom.load("CUOXTDGQ", {
+    Fathom.load("EFYQRVFH", {
       excludedDomains: ["localhost"],
-      url: "https://bee.nfte.app/script.js",
+      url: "https://horse.isitmintedyet.com/script.js",
     })
 
     function onRouteChangeComplete() {

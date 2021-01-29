@@ -4,6 +4,12 @@ const query = gql`
   query getMedia($contentHash: String) {
     medias(where: { contentHash: $contentHash }) {
       id
+      owner {
+        id
+      }
+      creator {
+        id
+      }
     }
   }
 `

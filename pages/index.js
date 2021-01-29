@@ -3,8 +3,9 @@ import { useMutation } from "react-query"
 import Box from "@components/Box"
 import Footer from "@components/Footer"
 
-import tokenQuery from "@utils/tokenQuery"
+import contentQuery from "@utils/contentQuery"
 import useSha256Hash from "@utils/useSha256Hash"
+import toTrimmedAddress from "@utils/toTrimmedAddress"
 
 export default function Home() {
   const [fileArrayBuffer, setFileArrayBuffer] = useState(null)
@@ -13,32 +14,55 @@ export default function Home() {
 
   const { mutate, data, isSuccess, reset } = useMutation(
     ["contentHash", derivedContentHash],
-    () => tokenQuery(derivedContentHash)
+    () => contentQuery(derivedContentHash)
   )
 
   const contentExists = data && data?.medias?.length > 0
 
   const handleFile = async (e) => {
     reset()
+    setFileArrayBuffer(null)
     const file = e.target.files[0]
+    if (!file) return
     const arrayBuffer = await file.arrayBuffer()
     setFileArrayBuffer(arrayBuffer)
   }
 
+  console.log(data)
+
   return (
     <Box as="main" css={{ maxWidth: 740, mx: "auto", py: "@3", px: "@2" }}>
       <Box
-        as="h1"
         css={{
-          fontSize: "@4",
-          fontFamily: "@body",
-          fontWeight: 700,
-          textAlign: "center",
-          m: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           mb: "@1",
         }}
       >
-        Is it minted yet?
+        <Box
+          as="img"
+          src="/zorb.jpg"
+          css={{
+            maxWidth: 50,
+            top: 8,
+            left: 8,
+            mr: "@1",
+            bp0: { position: "absolute", maxWidth: 80 },
+          }}
+        />
+        <Box
+          as="h1"
+          css={{
+            fontSize: "@4",
+            fontFamily: "@body",
+            fontWeight: 700,
+            textAlign: "center",
+            m: 0,
+          }}
+        >
+          Is it minted yet?
+        </Box>
       </Box>
       <Box as="p" css={{ fontWeight: 700, fontSize: "@2", mb: "@1" }}>
         What is this?
@@ -59,11 +83,13 @@ export default function Home() {
 
       <Box css={{ borderBottom: "1px solid @textLight", my: "@3" }} />
 
-      <Box css={{ display: "flex", alignItems: "flex-end", mb: "@4" }}>
+      <Box css={{ alignItems: "flex-end", mb: "@4", bp0: { display: "flex" } }}>
         <Box
           css={{
             display: "flex",
             flexDirection: "column",
+            mb: "@1",
+            bp0: { mb: 0, mr: "@1" },
           }}
         >
           <Box as="label" css={{ fontWeight: 700, mb: "@0" }}>
@@ -85,6 +111,7 @@ export default function Home() {
         </Box>
         <Box
           as="button"
+          disabled={!fileArrayBuffer}
           css={{
             appearance: "none",
             display: "inline-flex",
@@ -96,11 +123,16 @@ export default function Home() {
             py: "@1",
             textDecoration: "none",
             fontWeight: 700,
-            ml: "@2",
+            fontSize: "@1",
             cursor: "pointer",
+            bp1: { ml: "@2" },
             transition: "opacity 0.2s ease-in-out",
             "&:hover": {
               opacity: 0.8,
+            },
+            "&:disabled": {
+              opacity: 0.6,
+              cursor: "not-allowed",
             },
           }}
           onClick={() => mutate()}
@@ -116,6 +148,30 @@ export default function Home() {
                 Yes
               </Box>
               <Box>This content has been minted already on Zora</Box>
+              <Box as="p" css={{ my: "@0" }}>
+                <Box as="span" css={{ fontWeight: 700 }}>
+                  Created by:
+                </Box>{" "}
+                <Box
+                  as="a"
+                  href={`https://etherscan.io/address/${data?.medias[0]?.creator?.id}`}
+                  css={{ color: "currentcolor" }}
+                >
+                  {data?.medias[0]?.creator?.id}
+                </Box>
+              </Box>
+              <Box as="p" css={{ my: "@0" }}>
+                <Box as="span" css={{ fontWeight: 700 }}>
+                  Owned by:
+                </Box>{" "}
+                <Box
+                  as="a"
+                  href={`https://etherscan.io/address/${data?.medias[0]?.owner?.id}`}
+                  css={{ color: "currentcolor" }}
+                >
+                  {data?.medias[0]?.owner?.id}
+                </Box>
+              </Box>
             </Box>
           ) : (
             <Box css={{ textAlign: "center" }}>

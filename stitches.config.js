@@ -32,7 +32,7 @@ export const { styled, css } = createStyled({
       "@check": "#34d399",
     },
   },
-  breakpoints: { bp0: (rule) => `@media (min-width: 640px) { ${rule} }` },
+  breakpoints: { bp0: (rule) => `@media (min-width: 780px) { ${rule} }` },
   utils: {
     m: (config) => (value) => ({
       marginTop: value,

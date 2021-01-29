@@ -29,159 +29,206 @@ export default function Home() {
   }
 
   return (
-    <Box as="main" css={{ maxWidth: 740, mx: "auto", py: "@3", px: "@2" }}>
+    <Box
+      as="main"
+      css={{
+        maxWidth: 1280,
+        mx: "auto",
+        py: "@3",
+        px: "@3",
+        bp0: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)" },
+      }}
+    >
       <Box
         css={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          mb: "@1",
+          border: "1px solid @text",
+          px: "@2",
+          py: "@2",
+          bp0: {
+            px: "@5",
+            py: "@5",
+          },
         }}
       >
         <Box
           as="img"
           src="/zorb.jpg"
           css={{
-            maxWidth: 50,
-            top: 8,
-            left: 8,
-            mr: "@1",
-            bp0: { position: "absolute", maxWidth: 80 },
+            maxWidth: 80,
+            mb: "@5",
           }}
         />
         <Box
-          as="h1"
-          css={{
-            fontSize: "@4",
-            fontFamily: "@body",
-            fontWeight: 700,
-            textAlign: "center",
-            m: 0,
-          }}
-        >
-          Is it minted yet?
-        </Box>
-      </Box>
-      <Box as="p" css={{ fontWeight: 700, fontSize: "@2", mb: "@1" }}>
-        What is this?
-      </Box>
-      <Box as="p" css={{ m: 0 }}>
-        This tool allows you to easily check if a piece of content has been
-        minted using Zora's protocol. More information about Zora and its
-        protocol can be found by reading the{" "}
-        <Box
-          as="a"
-          href="https://zora.engineering/whitepaper"
-          target="_blank"
-          css={{ color: "currentcolor" }}
-        >
-          Whitepaper
-        </Box>
-      </Box>
-
-      <Box css={{ borderBottom: "1px solid @textLight", my: "@3" }} />
-
-      <Box css={{ alignItems: "flex-end", mb: "@4", bp0: { display: "flex" } }}>
-        <Box
           css={{
             display: "flex",
-            flexDirection: "column",
-            mb: "@1",
-            bp0: { mb: 0, mr: "@1" },
+            mb: "@5",
           }}
         >
-          <Box as="label" css={{ fontWeight: 700, mb: "@0" }}>
-            Pick a file
+          <Box
+            as="h1"
+            css={{
+              fontSize: "@4",
+              fontFamily: "@body",
+              fontWeight: 600,
+              m: 0,
+            }}
+          >
+            Is it minted yet?
           </Box>
+        </Box>
+
+        <Box as="p" css={{ m: 0, mb: "@2" }}>
+          This tool allows you to easily check if a piece of content has been
+          minted using{" "}
+          <Box
+            as="a"
+            href="https://zora.engineering/protocol"
+            css={{ color: "currentcolor" }}
+          >
+            Zora's protocol
+          </Box>
+          .
+        </Box>
+
+        <Box as="p" css={{ m: 0 }}>
+          More information about Zora and its protocol can be found by reading
+          the{" "}
+          <Box
+            as="a"
+            href="https://zora.engineering/whitepaper"
+            target="_blank"
+            css={{ color: "currentcolor" }}
+          >
+            Whitepaper
+          </Box>
+        </Box>
+
+        <Box css={{ borderBottom: "1px solid @textLight", my: "@3" }} />
+
+        <Box
+          css={{ alignItems: "flex-end", mb: "@2", bp0: { display: "flex" } }}
+        >
           <Box
             as="input"
             type="file"
             onChange={handleFile}
             css={{
-              fontFamily: "@mono",
+              fontFamily: "@body",
               fontSize: "@1",
-              px: "@1",
-              py: "@0",
-              border: "1px solid @text",
-              borderRadius: 5,
+              py: "@1",
+              width: "100%",
+              mr: "@2",
             }}
           />
-        </Box>
-        <Box
-          as="button"
-          disabled={!fileArrayBuffer}
-          css={{
-            appearance: "none",
-            display: "inline-flex",
-            border: "none",
-            borderRadius: 5,
-            backgroundColor: "@text",
-            color: "@bg",
-            px: "@3",
-            py: "@1",
-            textDecoration: "none",
-            fontWeight: 700,
-            fontSize: "@1",
-            cursor: "pointer",
-            bp1: { ml: "@2" },
-            transition: "opacity 0.2s ease-in-out",
-            "&:hover": {
-              opacity: 0.8,
-            },
-            "&:disabled": {
-              opacity: 0.6,
-              cursor: "not-allowed",
-            },
-          }}
-          onClick={() => mutate()}
-        >
-          Check
+
+          <Box
+            as="button"
+            disabled={!fileArrayBuffer}
+            css={{
+              appearance: "none",
+              display: "inline-flex",
+              border: "none",
+              backgroundColor: "@text",
+              color: "@bg",
+              px: "@5",
+              py: "@2",
+              textDecoration: "none",
+              fontSize: "@1",
+              cursor: "pointer",
+              transition: "opacity 0.2s ease-in-out",
+              "&:hover": {
+                opacity: 0.8,
+              },
+              "&:disabled": {
+                opacity: 0.6,
+                cursor: "not-allowed",
+              },
+            }}
+            onClick={() => mutate()}
+          >
+            Check
+          </Box>
         </Box>
       </Box>
-      {data && (
-        <Box css={{ mb: "@3" }}>
-          {contentExists ? (
-            <Box css={{ textAlign: "center" }}>
-              <Box css={{ fontSize: 80, fontWeight: 700, lineHeight: 1 }}>
-                Yes
-              </Box>
-              <Box>This content has been minted already on Zora</Box>
-              <Box as="p" css={{ my: "@0" }}>
-                <Box as="span" css={{ fontWeight: 700 }}>
-                  Created by:
-                </Box>{" "}
-                <Box
-                  as="a"
-                  href={`https://etherscan.io/address/${data?.medias[0]?.creator?.id}`}
-                  css={{ color: "currentcolor" }}
-                >
-                  {data?.medias[0]?.creator?.id}
-                </Box>
-              </Box>
-              <Box as="p" css={{ my: "@0" }}>
-                <Box as="span" css={{ fontWeight: 700 }}>
-                  Owned by:
-                </Box>{" "}
-                <Box
-                  as="a"
-                  href={`https://etherscan.io/address/${data?.medias[0]?.owner?.id}`}
-                  css={{ color: "currentcolor" }}
-                >
-                  {data?.medias[0]?.owner?.id}
-                </Box>
-              </Box>
-            </Box>
-          ) : (
-            <Box css={{ textAlign: "center" }}>
-              <Box css={{ fontSize: 80, fontWeight: 700, lineHeight: 1 }}>
-                No
-              </Box>
-              <Box>This content doesn't currently exist as an NFT on Zora</Box>
-            </Box>
-          )}
-        </Box>
-      )}
 
+      <Box
+        css={{
+          px: "@2",
+          py: "@2",
+          display: "flex",
+          borderLeft: "1px solid @text",
+          borderTop: "none",
+          borderRight: "1px solid @text",
+          borderBottom: "1px solid @text",
+          bp0: {
+            px: "@5",
+            py: "@5",
+            borderLeft: "none",
+            borderTop: "1px solid @text",
+            borderRight: "1px solid @text",
+            borderBottom: "1px solid @text",
+          },
+        }}
+      >
+        {data ? (
+          <Box css={{ display: "flex", mx: "auto", my: "auto" }}>
+            {contentExists ? (
+              <Box css={{ textAlign: "center" }}>
+                <Box
+                  css={{
+                    fontSize: 80,
+                    fontWeight: 600,
+                    lineHeight: 1,
+                    mb: "@1",
+                  }}
+                >
+                  Yes
+                </Box>
+                <Box css={{ mb: "@3" }}>
+                  This content has been minted on Zora
+                </Box>
+                <Box as="p" css={{ my: "@0" }}>
+                  <Box as="span" css={{ fontWeight: 600 }}>
+                    Created by
+                  </Box>{" "}
+                  <Box
+                    as="a"
+                    href={`https://etherscan.io/address/${data?.medias[0]?.creator?.id}`}
+                    css={{ color: "currentcolor" }}
+                  >
+                    {toTrimmedAddress(data?.medias[0]?.creator?.id)}
+                  </Box>
+                </Box>
+                <Box as="p" css={{ my: "@0" }}>
+                  <Box as="span" css={{ fontWeight: 600 }}>
+                    Owned by
+                  </Box>{" "}
+                  <Box
+                    as="a"
+                    href={`https://etherscan.io/address/${data?.medias[0]?.owner?.id}`}
+                    css={{ color: "currentcolor" }}
+                  >
+                    {toTrimmedAddress(data?.medias[0]?.owner?.id)}
+                  </Box>
+                </Box>
+              </Box>
+            ) : (
+              <Box css={{ textAlign: "center" }}>
+                <Box css={{ fontSize: 80, fontWeight: 600, lineHeight: 1 }}>
+                  No
+                </Box>
+                <Box>
+                  This content doesn't currently exist as an NFT on Zora
+                </Box>
+              </Box>
+            )}
+          </Box>
+        ) : (
+          <Box css={{ display: "flex", mx: "auto", my: "auto" }}>
+            Choose a file to check if its been minted
+          </Box>
+        )}
+      </Box>
       <Footer />
     </Box>
   )

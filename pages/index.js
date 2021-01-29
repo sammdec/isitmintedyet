@@ -28,8 +28,6 @@ export default function Home() {
     setFileArrayBuffer(arrayBuffer)
   }
 
-  console.log(data)
-
   return (
     <Box as="main" css={{ maxWidth: 740, mx: "auto", py: "@3", px: "@2" }}>
       <Box

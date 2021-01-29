@@ -16,7 +16,7 @@ export default function Home() {
     () => tokenQuery(derivedContentHash)
   )
 
-  const contentExists = data && data?.media?.length > 0
+  const contentExists = data && data?.medias?.length > 0
 
   const handleFile = async (e) => {
     reset()

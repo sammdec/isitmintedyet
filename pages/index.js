@@ -211,6 +211,14 @@ export default function Home() {
                     {toTrimmedAddress(data?.medias[0]?.owner?.id)}
                   </Box>
                 </Box>
+                <Box
+                  as="a"
+                  href={`https://zora.co/${data?.medias[0]?.creator?.id}/${data?.medias[0]?.id}`}
+                  css={{ color: "currentcolor" }}
+                  target="_blank"
+                >
+                  View on Zora.co
+                </Box>
               </Box>
             ) : (
               <Box css={{ textAlign: "center" }}>
